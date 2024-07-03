@@ -1,0 +1,13 @@
+.filters {
+    button {
+        padding: 10px 15px;
+        cursor: pointer;
+        background-color: transparent;
+        border-radius: 16px;
+        font-size: 20px;
+        transition: .4s ease-in-out;
+        &:hover{
+            background-color: #f5f5f5;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+.header__nav-bar {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.header__nav-bar a {
+  font-size: 20px;
+  text-decoration: none;
+  color: black;
+}
+.header__nav-bar p {
+  border-radius: 10px;
+  border: 1px solid black;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  border: 4px solid aquamarine;
+}/*# sourceMappingURL=Header.css.map */

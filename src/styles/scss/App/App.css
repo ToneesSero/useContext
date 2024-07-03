@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
 .App-logo {
@@ -12,7 +15,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -36,3 +38,7 @@
     transform: rotate(360deg);
   }
 }
+.container {
+  width: 70%;
+  margin: 0 auto;
+}/*# sourceMappingURL=App.css.map */

@@ -1,0 +1,27 @@
+.card {
+  border: 3px solid black;
+  text-align: left;
+  padding: 30px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.card-title {
+  font-size: 25px;
+}
+
+.card-text {
+  font-size: 25px;
+}
+
+.card-description {
+  font-size: 20px;
+}
+
+.card-email {
+  display: flex;
+  font-size: 20px;
+  text-align: center;
+  align-items: center;
+  gap: 20px;
+}/*# sourceMappingURL=Card.css.map */
