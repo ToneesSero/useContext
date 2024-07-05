@@ -1,9 +1,10 @@
 import React from 'react'
+import './Input.scss'
 
 export default function Input(props) {
   return (
     <div>
-        <input {...props} />
+        <input className='input' {...props} />
     </div>
   )
 }

@@ -18,13 +18,6 @@ import { useState } from 'react';
 
 
 function App() {
-  function showModal() {
-    setIsShowModal(true)
-  }
-  function hideModal(e) {
-    e.stopPropagation()
-    setIsShowModal(false)
-  }
 
   const [isSowModal, setIsShowModal] = useState(false)
   const [paramsFilter, setParamsFilter] = useState([])

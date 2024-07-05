@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Fragment, useRef } from 'react'
+import { useFilter } from '../hooks/useFilter'
 
 import Card from '../UI/Card/Card'
 import Modal from '../UI/Modal/Modal'
@@ -8,12 +9,21 @@ import './../styles/scss/Comments/Comments.css'
 
 export default function Comments() {
 
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModalFilter, setIsShowModalFilter] = useState(false);
+  const [isShowModalSort, setIsShowModalSort] = useState(false);
   const [paramsFilter, setParamsFilters] = useState([]);
-  const [selectedPostId, setSelectedPostId] = useState(null)
+  const [sortParam, setSortParam] = useState('name');
+  const [sortDirection, setSortDirection] = useState('asc');
+  const [query, setQuery] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState(null);
   const [comments, setComments] = useState();
-  const [currentComments, setCurrentComments] = useState(null)
-  const selectRef = useRef(null)
+  const [currentComments, setCurrentComments] = useState(null);
+  const [filterComment, queryComment, sortComment] = useFilter();
+
+  const selectFiltersRef = useRef(null);
+  const selectSortRef = useRef(null);
+  const selectSortDirectionRef = useRef(null)
+
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/comments?start=0&_limit=20')
@@ -32,30 +42,44 @@ export default function Comments() {
     }
   }, [comments, paramsFilter])
 
-  useEffect(()=>{    
+  useEffect(() => {
     let newArrayComments = comments
-    if (selectedPostId && selectedPostId !== 'null'){                      
-      newArrayComments = comments.filter((comment)=>comment['postId'] === selectedPostId)            
-    }
+    newArrayComments = filterComment(newArrayComments, selectedPostId, 'postId')
+    newArrayComments = queryComment(newArrayComments, query, 'email')
+    newArrayComments = sortComment(newArrayComments, sortParam, sortDirection )
     setCurrentComments(newArrayComments)
-  },[selectedPostId,comments, selectRef])
+  }, [selectedPostId, comments, selectFiltersRef, query, sortParam, sortDirection])
 
 
   function changeFilters() {
-    const select = selectRef.current
+    const select = selectFiltersRef.current
     setSelectedPostId(Number(select.value))
+  }
+
+  function changeSortParam() {
+    const select = selectSortRef.current
+    setSortParam(select.value)
+  }
+
+  function changeSortDirectionParam() {
+    const select = selectSortDirectionRef.current
+    setSortDirection(select.value)
   }
 
   return (
     <Fragment>
 
       <div className='search'>
-        <Input type={"text"} placeholder={'Поиск комментарием по email'}/>
+        <Input type={"text"} placeholder={'Поиск комментарием по email'} value={query} onChange={(e) => { setQuery(e.target.value) }} />
 
       </div>
 
       <div className='filters'>
-        <button onClick={() => setIsShowModal(true)}>Фильтры</button>
+        <button onClick={() => setIsShowModalFilter(true)}>Фильтры</button>
+      </div>
+
+      <div className='filters'>
+        <button onClick={() => setIsShowModalSort(true)}>Сортировка</button>
       </div>
 
       <div className="container" >
@@ -64,18 +88,39 @@ export default function Comments() {
         })}
       </div>
 
-      <Modal visible={isShowModal} setVisible={setIsShowModal}>
+      <Modal visible={isShowModalFilter} setVisible={setIsShowModalFilter}>
         <div className='modal__title'>
           <h3>Фильтрация комментариев</h3>
         </div>
         <hr />
         <div className='modal__container'>
-          <select ref={selectRef} onChange={()=>{changeFilters()}}>
+          <select ref={selectFiltersRef} onChange={() => { changeFilters() }}>
             <option disabled>По postId</option>
             <option value="null" key="null">Отключить фильтрацию</option>
             {paramsFilter.map((param, index) => {
               return <option value={param} key={index}>PostId = {param}</option>
             })}
+          </select>
+        </div>
+      </Modal>
+
+      <Modal visible={isShowModalSort} setVisible={setIsShowModalSort}>
+        <div className='modal__title'>
+          <h3>Сортировка комментариев</h3>
+        </div>
+        <hr />
+        <div className='modal__container'>
+          <p>Сортировка</p>
+          <select ref={selectSortRef} onChange={() => { changeSortParam() }}>
+            <option disabled value='null' key='null'>Сортировка: </option>
+            <option value="name" key="name">По имени</option>
+            <option value="email" key="email">По почте</option>
+          </select>
+
+          <p>Настройки сортировки</p>
+          <select ref={selectSortDirectionRef} onChange={() => { changeSortDirectionParam() }}>            
+            <option value="asc" key="asc" selected>По возрастанию</option>
+            <option value="desc" key="desc">По убыванию</option>
           </select>
         </div>
       </Modal>
