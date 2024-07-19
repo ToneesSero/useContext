@@ -92,7 +92,7 @@ export default function Posts() {
 
         <div className="container" >
           {postsVisible?.map((post) => {
-            return (<Card title={post['title']} text={post['body']} img={post['thumbnailUrl '] ? post['thumbnailUrl'] : ''} key={post['id']} />)
+            return (<Card title={post['title']} text={post['body']} img={post['thumbnailUrl '] ? post['thumbnailUrl'] : ''} key={post['id']} link={`/posts/${post['id']}`}/>)
 
           })}
         </div>

@@ -17,26 +17,36 @@ import CommentContextProvider from './context/ComentContext.jsx';
 import Header from './components/Header.jsx';
 import Detail_Info from './pages/Detail_Info.jsx';
 import PostsContextProvider from './context/PostsContext.jsx';
+import AlbumContextProvider, { albumContext } from './context/AlbumContext.jsx';
 
 
 
-function App() {  
+function App() {
 
   return (
     <div className="App">
-      <Header  />
+      <Header />
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/albums" element={<Albums />} />
+        <Route path="/albums" element={
+          <AlbumContextProvider>
+            <Albums />
+          </AlbumContextProvider>
+        } />
+        <Route path="/albums/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/albums'} field={'id'} />
+        } />
+
+
 
         <Route path="/comments" element={
           <CommentContextProvider>
             <Comments />
           </CommentContextProvider>
         } />
-        <Route path="/comments/:id" element={          
-            <Detail_Info url={'https://jsonplaceholder.typicode.com/comments'} field={'id'}/>          
+        <Route path="/comments/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/comments'} field={'id'} />
         } />
 
 
@@ -46,9 +56,9 @@ function App() {
           <PostsContextProvider>
             <Posts />
           </PostsContextProvider>
-          } />
-        <Route path="/posts/:userId" element={          
-            <Detail_Info url={'https://jsonplaceholder.typicode.com/posts'} field={'userId'}/>          
+        } />
+        <Route path="/posts/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/posts'} field={'id'} />
         } />
         <Route path="/users" element={<Users />} />
         <Route path="/todos" element={<Todos />} />

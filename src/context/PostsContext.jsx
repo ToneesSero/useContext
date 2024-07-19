@@ -15,7 +15,7 @@ export default function PostsContextProvider({children}) {
          .then((res) => res.json())
          .then(data => {
             setPosts(data)
-            setLoading(false)            
+            setLoading(false)                      
          })        
      }, [setPosts]);
 

@@ -7,14 +7,13 @@ export default function Detail_Info({url, field}) {
     const [currentData, setCurrentData] = useState({})    
     const params = useParams()
 
-    useEffect(() => {
-        console.log(params);
+    useEffect(() => {        
         fetch(url+`?${field}=${params[field]}`)
             .then((res) => res.json())
             .then(data => {
                 if(Array.isArray(data)){
                     setCurrentData(data[0])                    
-                }
+                }               
             })
     }, [params, field, url])
     return (
