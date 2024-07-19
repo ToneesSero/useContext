@@ -21,13 +21,13 @@ export default function Comments() {
   const [paramsFilter, setParamsFilters] = useState([]);
   const [sortParam, setSortParam] = useState('name');
   const [sortDirection, setSortDirection] = useState('asc');
-  const [query, setQuery] = useState(null);
+  const [query, setQuery] = useState('');
   const [selectedPostId, setSelectedPostId] = useState(null);
 
   const [filterComment, queryComment, sortComment] = useFilter();
   const [setPage, countPages] = usePagination(comments, 20)
   const [arrayPages, setArrayPages] = useState([])
-  const [searchPage, setSearchPage] = useState(null)
+  const [searchPage, setSearchPage] = useState('')
 
   const selectFiltersRef = useRef(null);
   const selectSortRef = useRef(null);
@@ -109,7 +109,7 @@ export default function Comments() {
 
   // Ввод страницы через input
   function changeSearchPage(value){
-    if (value > 0 && value < countPages) {
+    if (!isNaN(value) && value > 0 && value < countPages) {
       setCurrentPage(Number(value))
     }
     setSearchPage((value))
@@ -170,15 +170,15 @@ export default function Comments() {
           <hr />
           <div className='modal__container'>
             <p>Сортировка</p>
-            <select ref={selectSortRef} onChange={() => { changeSortParam() }}>
+            <select ref={selectSortRef} onChange={() => { changeSortParam() }} defaultValue={'name'}>
               <option disabled value='null' key='null'>Сортировка: </option>
               <option value="name" key="name">По имени</option>
               <option value="email" key="email">По почте</option>
             </select>
 
             <p>Настройки сортировки</p>
-            <select ref={selectSortDirectionRef} onChange={() => { changeSortDirectionParam() }}>
-              <option value="asc" key="asc" selected>По возрастанию</option>
+            <select ref={selectSortDirectionRef} onChange={() => { changeSortDirectionParam() }} defaultValue={'asc'}>
+              <option value="asc" key="asc" >По возрастанию</option>
               <option value="desc" key="desc">По убыванию</option>
             </select>
           </div>
