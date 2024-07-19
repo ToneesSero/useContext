@@ -5,19 +5,20 @@ import './styles/scss/filters/filters.scss'
 // Страницы
 import HomePage from './pages/HomePage';
 import Albums from './pages/Albums';
-import Comments from './pages/comment/Comments.jsx';
+import Comments from './pages/Comments.jsx';
 import Photos from './pages/Photos';
 import Posts from './pages/Posts';
 import Todos from './pages/Todos';
 import Users from './pages/Users';
 import NotFound from './pages/NotFound';
-import CommentContextProvider from './context/ComentContext.jsx';
 
 // Элементы
 import Header from './components/Header.jsx';
 import Detail_Info from './pages/Detail_Info.jsx';
 import PostsContextProvider from './context/PostsContext.jsx';
-import AlbumContextProvider, { albumContext } from './context/AlbumContext.jsx';
+import AlbumContextProvider from './context/AlbumContext.jsx';
+import CommentContextProvider from './context/ComentContext.jsx';
+import PhotosContextProvider from './context/PhotosContext.jsx';
 
 
 
@@ -29,6 +30,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        {/* Albums */}
         <Route path="/albums" element={
           <AlbumContextProvider>
             <Albums />
@@ -38,8 +40,7 @@ function App() {
           <Detail_Info url={'https://jsonplaceholder.typicode.com/albums'} field={'id'} />
         } />
 
-
-
+        {/* Comments */}
         <Route path="/comments" element={
           <CommentContextProvider>
             <Comments />
@@ -49,9 +50,17 @@ function App() {
           <Detail_Info url={'https://jsonplaceholder.typicode.com/comments'} field={'id'} />
         } />
 
+        {/* Photos */}
+        <Route path="/photos" element={
+          <PhotosContextProvider>
+            <Photos />
+          </PhotosContextProvider>
+        } />
+        <Route path="/photos/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/photos'} field={'id'} />
+        } />
 
-        <Route path="/photos" element={<Photos />} />
-
+        {/* Posts */}
         <Route path="/posts" element={
           <PostsContextProvider>
             <Posts />
@@ -60,6 +69,7 @@ function App() {
         <Route path="/posts/:id" element={
           <Detail_Info url={'https://jsonplaceholder.typicode.com/posts'} field={'id'} />
         } />
+
         <Route path="/users" element={<Users />} />
         <Route path="/todos" element={<Todos />} />
         <Route path="*" element={<NotFound />} />

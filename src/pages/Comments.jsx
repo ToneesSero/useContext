@@ -1,12 +1,12 @@
 import React, { useState, useEffect, Fragment, useRef, useContext } from 'react'
-import { useFilter } from '../../hooks/useFilter'
-import { usePagination } from '../../hooks/usePagination'
-import { commentContext } from '../../context/ComentContext'
+import { useFilter } from '../hooks/useFilter'
+import { usePagination } from '../hooks/usePagination'
+import { commentContext } from '../context/ComentContext'
 
-import Card from '../../UI/Card/Card'
-import Modal from '../../UI/Modal/Modal'
-import Input from '../../UI/Input/Input'
-import '../../styles/scss/Comments/Comments.css'
+import Card from '../UI/Card/Card'
+import Modal from '../UI/Modal/Modal'
+import Input from '../UI/Input/Input'
+import '../styles/scss/Comments/Comments.css'
 
 export default function Comments() {
 

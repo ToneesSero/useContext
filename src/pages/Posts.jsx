@@ -31,13 +31,13 @@ export default function Posts() {
   // Определяет какие страницы будут показываться в пагинации
   useEffect(() => {
     setArrayPages(getArrayPages(currentPage))
-  }, [countPages, currentPage])
+  }, [countPages, currentPage]);
 
   // При изменении страницы получаем нужные данные и сбрасываем фильтры
   useEffect(() => {
     setCurrentPosts(setPage(currentPage));
     setPostsVisible(currentPosts);
-  }, [posts, currentPage])
+  }, [posts, currentPage]);
 
   // Изменение показывающихся данных в зависимости с параметрами поиска, сортировки и фильтрации
   useEffect(() => {
@@ -49,17 +49,17 @@ export default function Posts() {
       newArrayPosts = sortPosts(newArrayPosts, sortParam, sortDirection)
     }
     setPostsVisible(newArrayPosts)
-  }, [currentPosts, query, sortParam, sortDirection])
+  }, [currentPosts, query, sortParam, sortDirection]);
 
   function changeSortParam() {
     const select = selectSortRef.current
     setSortParam(select.value)
-  }
+  };
 
   function changeSortDirectionParam() {
     const select = selectSortDirectionRef.current
     setSortDirection(select.value)
-  }
+  };
 
   // Ввод страницы через input
   function changeSearchPage(value) {
@@ -67,7 +67,7 @@ export default function Posts() {
       setCurrentPage(Number(value))
     }
     setSearchPage((value))
-  }
+  };
 
   if (!loading) {
     return (
