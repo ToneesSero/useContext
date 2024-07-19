@@ -47,3 +47,8 @@
     width: 70%;
     margin: 0 auto;
   }
+  .active__pagination{
+    background-color: black;
+    color: white;
+    transition: .4s ease-in-out;
+  }

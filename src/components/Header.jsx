@@ -3,7 +3,7 @@ import '../styles/scss/Header/Header.scss'
 import { Link } from 'react-router-dom'
 
 
-export default function Header({ setParamsFilter }) {
+export default function Header() {
   return (
     <div className='header'>
       <nav className='header__nav-bar'>

@@ -1,20 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import './Card.scss'
 
-export default function Card({ title, text, description, imgUrl, email }) {
+export default function Card({ title, text, description, imgUrl, email, link }) {
   return (
     <div className='card'>
       <div className='card__block-text'>
 
         {
           email
-          ?(
-            <div className='card-email'>
-              <h2>Email:</h2>
-              <a href={"mailto:"+email}>{email}</a>
-            </div>
-          )
-          : null
+            ? (
+              <div className='card-email'>
+                <h2>Email:</h2>
+                <a href={"mailto:" + email}>{email}</a>
+              </div>
+            )
+            : null
         }
 
         {
@@ -48,6 +50,16 @@ export default function Card({ title, text, description, imgUrl, email }) {
             : null
         }
 
+        {
+          link
+            ? (
+              <div className='card-description'>
+                <Link to={link}><button>Подробнее</button></Link>
+              </div>
+            )
+            : null
+        }
+
       </div>
 
 
@@ -55,7 +67,7 @@ export default function Card({ title, text, description, imgUrl, email }) {
         imgUrl
           ? (
             <div className='card__block-img'>
-              <img src={imgUrl} alt='img'/>
+              <img src={imgUrl} alt='img' />
             </div>
           )
           : null

@@ -1,5 +1,6 @@
 function useFilter(data, filterValue, filterField, queryValue) {
 
+    // Фильтрация по полю
     function filterByField(data, filterValue, filterField) {
         if (filterValue && filterValue !== 'null') {
             if (Array.isArray(data) && data.length > 0) {
@@ -9,15 +10,17 @@ function useFilter(data, filterValue, filterField, queryValue) {
         return data
     }
 
+    // Поиск по полю
     function queryByField(data, queryValue, queryField) {
         if (queryValue && queryField) {
             if (Array.isArray(data) && data.length > 0) {
-                data =  data.filter((item) => item[queryField].includes(queryValue))
+                data =  data.filter((item) => item[queryField].toLowerCase().includes(queryValue.toLowerCase()))
             }
         }
         return data
     }
 
+    // Сортировка по полю
     function sortByField(data, sortField, sortDirection) {
         if (sortField) {
             // Сортировка числовых полей
