@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import './styles/scss/App/App.scss';
 import './styles/scss/filters/filters.scss'
-import { useState } from 'react';
 
 // Страницы
 import HomePage from './pages/HomePage';
@@ -16,7 +15,8 @@ import CommentContextProvider from './context/ComentContext.jsx';
 
 // Элементы
 import Header from './components/Header.jsx';
-import Detail_Info from './pages/comment/Detail_Info.jsx';
+import Detail_Info from './pages/Detail_Info.jsx';
+import PostsContextProvider from './context/PostsContext.jsx';
 
 
 
@@ -42,7 +42,11 @@ function App() {
 
         <Route path="/photos" element={<Photos />} />
 
-        <Route path="/posts" element={<Posts />} />
+        <Route path="/posts" element={
+          <PostsContextProvider>
+            <Posts />
+          </PostsContextProvider>
+          } />
         <Route path="/posts/:userId" element={          
             <Detail_Info url={'https://jsonplaceholder.typicode.com/posts'} field={'userId'}/>          
         } />

@@ -1,13 +1,12 @@
 import React, { useState, useEffect, Fragment, useRef, useContext } from 'react'
 import { useFilter } from '../../hooks/useFilter'
+import { usePagination } from '../../hooks/usePagination'
+import { commentContext } from '../../context/ComentContext'
 
 import Card from '../../UI/Card/Card'
 import Modal from '../../UI/Modal/Modal'
 import Input from '../../UI/Input/Input'
-
 import '../../styles/scss/Comments/Comments.css'
-import { commentContext } from '../../context/ComentContext'
-import { usePagination } from '../../hooks/usePagination'
 
 export default function Comments() {
 
@@ -25,7 +24,7 @@ export default function Comments() {
   const [selectedPostId, setSelectedPostId] = useState(null);
 
   const [filterComment, queryComment, sortComment] = useFilter();
-  const [setPage, countPages] = usePagination(comments, 20)
+  const [setPage,getArrayPages, countPages] = usePagination(comments, 20)
   const [arrayPages, setArrayPages] = useState([])
   const [searchPage, setSearchPage] = useState('')
 
@@ -35,26 +34,7 @@ export default function Comments() {
 
   // Определяет какие страницы будут показываться в пагинации
   useEffect(() => {
-    let allPages = []
-    if (countPages > 0 && currentPage > 0) {
-      for (let i = 1; i < countPages; i++) {
-        // Три первых
-        if (i <= 3) {
-          allPages.push(Number(i))
-        }
-        // Три последних
-        if (i >= countPages - 3) {
-          allPages.push(Number(i))
-        }
-        // текущая и две справа, и две слева (например текущая: 9, значит будут показываться ещё страницы 7,8 И 10,11)
-        if ((i >= currentPage - 2) && (i <= currentPage + 2)) {
-          allPages.push(Number(i))
-        }
-      }
-      // Страницы не должны повторяться
-      allPages = Array.from(new Set(allPages.sort((a,b)=> Number(a)-Number(b))))
-    }
-    setArrayPages(allPages)
+    setArrayPages(getArrayPages(currentPage))
   }, [countPages, currentPage])
 
   // При изменении страницы получаем нужные данные и сбрасываем фильтры

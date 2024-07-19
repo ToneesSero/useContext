@@ -16,7 +16,7 @@ export default function Detail_Info({url, field}) {
                     setCurrentData(data[0])                    
                 }
             })
-    }, [params])
+    }, [params, field, url])
     return (
         <div>
             {Object.keys(currentData).map((obj,index)=>{
