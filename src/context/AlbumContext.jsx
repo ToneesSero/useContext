@@ -15,8 +15,7 @@ export default function AlbumContextProvider({children}) {
          .then((res) => res.json())
          .then(data => {
             setAlbums(data)
-            setLoading(false)     
-            console.log(data);                 
+            setLoading(false)                 
          })        
      }, []);
 

@@ -19,6 +19,7 @@ import PostsContextProvider from './context/PostsContext.jsx';
 import AlbumContextProvider from './context/AlbumContext.jsx';
 import CommentContextProvider from './context/ComentContext.jsx';
 import PhotosContextProvider from './context/PhotosContext.jsx';
+import UsersContextProvider from './context/UsersContext.jsx';
 
 
 
@@ -70,7 +71,17 @@ function App() {
           <Detail_Info url={'https://jsonplaceholder.typicode.com/posts'} field={'id'} />
         } />
 
-        <Route path="/users" element={<Users />} />
+        {/* Users */}
+        <Route path="/users" element={
+          <UsersContextProvider>
+            <Users />
+          </UsersContextProvider>
+        } />
+        <Route path="/users/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/users'} field={'id'} />
+        } />
+
+
         <Route path="/todos" element={<Todos />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -1,0 +1,16 @@
+.text-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    vertical-align: middle;
+    align-items: center;
+    
+}
+.text-block{
+    width: 20%;
+    text-align: left;
+    font-size: 18px;
+    p{
+        margin: 0;
+    }
+}

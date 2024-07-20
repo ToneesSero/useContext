@@ -11,13 +11,36 @@ function useFilter(data, filterValue, filterField, queryValue) {
     }
 
     // Поиск по полю
-    function queryByField(data, queryValue, queryField) {
+    function queryByField(data, queryValue, queryField, startStr = false) {
         if (queryValue && queryField) {
             if (Array.isArray(data) && data.length > 0) {
-                data =  data.filter((item) => item[queryField].toLowerCase().includes(queryValue.toLowerCase()))
+                if (startStr) {
+                    data = data.filter((item) => findNestedValue(queryField, item).toLowerCase().indexOf(queryValue.toLowerCase()) === 0)
+                }
+                else {
+                    data = data.filter((item) => findNestedValue(queryField, item).toLowerCase().includes(queryValue.toLowerCase()))
+                }
+
             }
+
         }
         return data
+    }
+
+    // Если path передан в формате 'path!!nextpath' то функция будет искать вложенности в объекте
+    function findNestedValue(path, item) {
+        let nestedData = null
+        if (path.includes('!!')) {
+            let arrayField = path.split('!!')
+            nestedData = item
+            for (let i = 0; i < arrayField.length; i++) {
+                nestedData = nestedData[arrayField[i]]
+            }
+        }
+        else {
+            nestedData = item[path]
+        }
+        return nestedData ? nestedData : ''
     }
 
     // Сортировка по полю
@@ -26,25 +49,25 @@ function useFilter(data, filterValue, filterField, queryValue) {
             // Сортировка числовых полей
             if (Array.isArray(data) && data.length > 0) {
                 if (Number.isInteger(data[0][sortField])) {
-    
+
                     if (sortDirection === 'asc') {
                         data = data.sort((a, b) => a[sortField] - b[sortField])
                     }
                     else if (sortDirection === 'desc') {
                         data = data.sort((a, b) => a[sortField] + b[sortField])
                     }
-    
+
                 }
                 // Сортировка текстовых полей
                 else {
-    
+
                     if (sortDirection === 'asc') {
                         data = data.sort((a, b) => a[sortField].toLowerCase().localeCompare(b[sortField].toLowerCase()))
                     }
                     else if (sortDirection === 'desc') {
                         data = data.sort((a, b) => b[sortField].toLowerCase().localeCompare(a[sortField].toLowerCase()))
                     }
-    
+
                 }
                 return data
             }
@@ -55,4 +78,4 @@ function useFilter(data, filterValue, filterField, queryValue) {
 
 }
 
-export{useFilter}
+export { useFilter }
