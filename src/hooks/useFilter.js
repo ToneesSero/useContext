@@ -1,8 +1,11 @@
 function useFilter(data, filterValue, filterField, queryValue) {
 
+    function notNull(params) {
+        return params !== null && params !== undefined && params !== 'null'
+    }
     // Фильтрация по полю
     function filterByField(data, filterValue, filterField) {
-        if (filterValue && filterValue !== 'null') {
+        if ( notNull(filterValue) && notNull(filterField)) {
             if (Array.isArray(data) && data.length > 0) {
                 data = data.filter((item) => item[filterField] === filterValue)
             }

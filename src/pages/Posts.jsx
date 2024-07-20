@@ -33,7 +33,7 @@ export default function Posts() {
     setArrayPages(getArrayPages(currentPage))
   }, [countPages, currentPage]);
 
-  // При изменении страницы получаем нужные данные и сбрасываем фильтры
+  // При изменении страницы получаем нужные данные
   useEffect(() => {
     setCurrentPosts(setPage(currentPage));
     setPostsVisible(currentPosts);

@@ -20,6 +20,7 @@ import AlbumContextProvider from './context/AlbumContext.jsx';
 import CommentContextProvider from './context/ComentContext.jsx';
 import PhotosContextProvider from './context/PhotosContext.jsx';
 import UsersContextProvider from './context/UsersContext.jsx';
+import TodosContextProvider from './context/TodosContext.jsx';
 
 
 
@@ -82,7 +83,15 @@ function App() {
         } />
 
 
-        <Route path="/todos" element={<Todos />} />
+        <Route path="/todos" element={
+          <TodosContextProvider>
+            <Todos />
+          </TodosContextProvider>
+        } />
+        <Route path="/todos/:id" element={
+          <Detail_Info url={'https://jsonplaceholder.typicode.com/todos'} field={'id'} />
+        } />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
 

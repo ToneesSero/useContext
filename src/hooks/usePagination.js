@@ -30,7 +30,7 @@ function usePagination(data, lengthPage) {
                     allPages.push(Number(i))
                 }
                 // Три последних
-                if (i >= countPages - 3) {
+                if (i >= countPages - 2) {
                     allPages.push(Number(i))
                 }
                 // текущая и две справа, и две слева (например текущая: 9, значит будут показываться ещё страницы 7,8 И 10,11)

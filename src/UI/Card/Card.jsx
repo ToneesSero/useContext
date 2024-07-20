@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 import './Card.scss'
 
-export default function Card({ title, text, description, imgUrl, email, link }) {
+export default function Card({ title, text, description, imgUrl, email, link, checkbox, checkboxValue }) {
   return (
     <div className='card'>
       <div className='card__block-text'>
@@ -19,15 +19,26 @@ export default function Card({ title, text, description, imgUrl, email, link }) 
             : null
         }
 
-        {
-          title
-            ? (
-              <div className='card-title'>
+        <div className='title'>
+          {
+            title
+              ? (
                 <h2> {title}</h2>
-              </div>
-            )
-            : null
-        }
+              )
+              : null
+          }
+          {
+            checkbox
+              ? (
+                <div className='card-checkbox'>
+                  <label htmlFor='checkbox'>Выполнено:</label>
+                  <input type="checkbox" name="checkbox" checked={checkboxValue} onChange={()=>null}/>
+                </div>
+              )
+              : null
+          }
+        </div>
+
 
         {
           text
